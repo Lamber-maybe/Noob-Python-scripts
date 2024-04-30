@@ -25,7 +25,13 @@ var cmdMutex sync.Mutex // 用于保护 cmd 变量的互斥锁
 func main() {
 	myApp := app.New()
 	myWindow := myApp.NewWindow("蛙老师都能使用的文件监控")
-	myWindow.Resize(fyne.NewSize(800, 800))
+	myWindow.Resize(fyne.NewSize(600, 600))
+
+	//输入框文本
+	contents := widget.NewLabel("输入文件路径")
+
+	// 创建一个输入框，用于输入路径
+	pathEntry := widget.NewEntry()
 
 	// 创建一个按钮，用于触发文件夹路径选择对话框
 	selectButton := widget.NewButton("选择需要监控的文件夹", func() {
@@ -37,6 +43,7 @@ func main() {
 
 	// 创建一个按钮，用于执行PowerShell命令
 	executeButton := widget.NewButton("开始监控", func() {
+		endpath = pathEntry.Text
 		selectedPath := findSelectedPathLabel(myWindow).Text
 		if selectedPath != "" {
 			go executePowerShellCommand(endpath)
@@ -53,6 +60,8 @@ func main() {
 
 	// 将按钮和标签放置在一个垂直容器中
 	content := container.NewVBox(
+		contents,
+		pathEntry,
 		selectButton,
 		selectedPathLabel,
 		executeButton,
