@@ -4,6 +4,14 @@ import base64
 import time
 from tqdm import tqdm  # 导入tqdm模块
 
+"""
+Summary:
+通过Hunter快速确认大批量公司是否有资产存活
+domain.txt中应为完整的搜索语法，如：icp.name="xxxx公司"，每行一个
+为了节约积分，每行语法只获取一条数据，可自行修改page&page_size,但是不建议大量获取，默认会返回存货资产的页面信息
+可以自行修改start_time和end_time来进行时间范围的筛选
+"""
+
 # API密钥，你需要将其替换为实际的API密钥
 api_key = '你的API'
 
